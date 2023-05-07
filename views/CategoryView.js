@@ -1,3 +1,4 @@
+//Libraries
 import React, { useState } from "react";
 import {
   View,
@@ -7,9 +8,22 @@ import {
   LayoutAnimation,
   StyleSheet,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-function CategoryView({ categories, meals }) {
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  filterMenuByName,
+  filterMenuByCategory,
+  setSearchText,
+} from "../redux/mainSlice";
+
+function CategoryView() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const categories = useSelector((state) => state.main.categories);
+  const menu = useSelector((state) => state.main.menu);
 
   const toggleCategory = (categoryId) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -17,26 +31,30 @@ function CategoryView({ categories, meals }) {
   };
 
   const renderCategoryItem = ({ item }) => {
-    const categoryMeals = meals.filter((meal) => meal.category.id === item.id);
-    const isCategorySelected = selectedCategoryId === item.id;
+    const categoryMenu = menu.filter((meal) => meal.category.id === item.id);
 
     return (
       <TouchableOpacity onPress={() => toggleCategory(item.id)}>
-        {!isCategorySelected && (
+        {selectedCategoryId === item.id ? (
           <View style={styles.card}>
-            <Text style={styles.categoryTitle}>{item.title}</Text>
-          </View>
-        )}
-        {isCategorySelected && (
-          <View style={styles.card}>
-            <Text style={styles.categoryTitle}>{item.title}</Text>
+            <View style={styles.cardHeader}>
+              <Text style={styles.categoryTitle}>{item.title}</Text>
+              <Ionicons name="chevron-up" size={25} color="#000" />
+            </View>
             <FlatList
-              data={categoryMeals}
-              keyExtractor={(meal) => meal.id}
+              data={categoryMenu}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <Text style={styles.mealItem}>{item.name}</Text>
               )}
             />
+          </View>
+        ) : (
+          <View style={styles.card}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.categoryTitle}>{item.title}</Text>
+              <Ionicons name="chevron-down" size={25} color="#000" />
+            </View>
           </View>
         )}
       </TouchableOpacity>
@@ -48,15 +66,19 @@ function CategoryView({ categories, meals }) {
       data={categories}
       keyExtractor={(category) => category.id}
       renderItem={renderCategoryItem}
-      style={{ width: "100%", marginTop: 20 }}
+      style={styles.container}
     />
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    padding: 16,
+    gap: 20,
+  },
   card: {
-    marginHorizontal: 16,
-    marginVertical: 8,
+    marginBottom: 8,
     backgroundColor: "#fff",
     borderRadius: 20,
     paddingHorizontal: 20,
@@ -68,6 +90,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    justifyContent: "space-between",
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
   },
   categoryTitle: {

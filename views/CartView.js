@@ -1,52 +1,59 @@
+//Libraries
 import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import OrderedItemsSummary from "./OrderedItemsSummary";
-import CartSummaryWithAction from "./CartSummaryWithAction";
 
-function CartView({ cartItems, removeCartItem, addToCart }) {
-  const renderItem = ({ item }) => (
-    <OrderedItemsSummary
-      item={item}
-      removeCartItem={removeCartItem}
-      addToCart={addToCart}
-    />
-  );
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  filterMenuByName,
+  filterMenuByCategory,
+  setSearchText,
+} from "../redux/mainSlice";
+
+//Internal Components
+import OrderedItemsSummary from "../components/OrderedItemsSummary";
+import CartSummaryWithAction from "../components/CartSummaryWithAction";
+
+function CartView() {
+  const cart = useSelector((state) => state.main.cart);
+
   return (
-    <View style={styles.container}>
-      {cartItems.length === 0 ? (
+    <>
+      {cart.length === 0 ? (
         <View style={styles.emptyCartContainer}>
           <Ionicons name="cart" size={50} style={styles.emptyCartIcon} />
           <Text style={styles.emptyCartText}>
-            No items in cart. {"\n"} Let's do something bout it
+            No items in cart. {"\n"} Let's do something about it
           </Text>
         </View>
       ) : (
-        <>
+        <View style={styles.container}>
           <FlatList
-            data={cartItems}
-            renderItem={renderItem}
+            data={cart}
+            renderItem={({ item }) => <OrderedItemsSummary item={item} />}
             keyExtractor={(item) => item.id}
-            contentContainerStyle={{
-              paddingHorizontal: 16,
-              paddingVertical: 8,
-            }}
           />
           <CartSummaryWithAction
-            mealsTotalPrice={cartItems.reduce(
+            mealsTotalPrice={cart.reduce(
               (acc, curr) => acc + curr.price * curr.count,
               0
             )}
           />
-        </>
+        </View>
       )}
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
+    padding: 16,
+    gap: 20,
   },
   emptyCartContainer: {
     flex: 1,
@@ -64,14 +71,6 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     marginVertical: 8,
-  },
-  itemText: {
-    flex: 1,
-  },
-  totalContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 16,
   },
 });
 
