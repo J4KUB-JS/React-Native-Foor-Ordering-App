@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   cardHeader: {
     display: "flex",
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     width: 50,
     backgroundColor: "#2AB179",
     borderRadius: 20,
+    marginRight: 16,
   },
 });
 

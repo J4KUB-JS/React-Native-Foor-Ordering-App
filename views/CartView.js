@@ -35,6 +35,9 @@ function CartView() {
             data={cart}
             renderItem={({ item }) => <OrderedItemsSummary item={item} />}
             keyExtractor={(item) => item.id}
+            contentContainerStyle={{
+              paddingHorizontal: 16,
+            }}
           />
           <CartSummaryWithAction
             mealsTotalPrice={cart.reduce(
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    padding: 16,
+    paddingVertical: 16,
     gap: 20,
   },
   emptyCartContainer: {

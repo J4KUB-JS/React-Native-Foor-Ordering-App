@@ -1,6 +1,6 @@
 //Libraries
 import React from "react";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 
 //Redux
 import { store } from "./redux/store";
@@ -8,14 +8,7 @@ import { Provider } from "react-redux";
 
 //Internal Components
 import MainView from "./views/MainView";
-
-const MyTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: "#ffffff", // set the background color of the app
-  },
-};
+import { MyTheme } from "./theme/theme";
 
 function App() {
   return (

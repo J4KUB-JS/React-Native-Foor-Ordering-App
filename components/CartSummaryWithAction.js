@@ -20,7 +20,6 @@ function CartSummaryWithAction({ mealsTotalPrice }) {
           <Text style={styles.individualCostsLabel}>Delivery</Text>
           <Text style={styles.individualCostsLabel}>Free</Text>
         </View>
-
         <View style={styles.totalPriceContainer}>
           <Text style={styles.totalPriceLabel}>Total:</Text>
           <Text style={styles.totalPriceLabel}>
@@ -28,7 +27,6 @@ function CartSummaryWithAction({ mealsTotalPrice }) {
           </Text>
         </View>
       </View>
-
       <TouchableOpacity style={styles.orderButton}>
         <Text style={styles.orderButtonText}>Place Order</Text>
         <Ionicons name="arrow-forward" size={24} color="#fff" />
@@ -39,6 +37,7 @@ function CartSummaryWithAction({ mealsTotalPrice }) {
 
 const styles = StyleSheet.create({
   cartSummaryContainer: {
+    marginHorizontal: 16,
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 5,
@@ -48,8 +47,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   priceContainer: {
     flexDirection: "column",

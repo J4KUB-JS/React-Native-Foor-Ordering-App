@@ -26,14 +26,18 @@ const MealView = () => {
     );
     return (
       <>
-        <View style={styles.categoryLabelWrapper}>
-          <Text style={styles.categoryLabel}>{item.title}</Text>
-        </View>
-        <FlatList
-          data={categoryMenu}
-          renderItem={({ item }) => <MealCard item={item} />}
-          keyExtractor={(item) => item.id}
-        />
+        {categoryMenu.length !== 0 ? (
+          <>
+            <View style={styles.categoryLabelWrapper}>
+              <Text style={styles.categoryLabel}>{item.title}</Text>
+            </View>
+            <FlatList
+              data={categoryMenu}
+              renderItem={({ item }) => <MealCard item={item} />}
+              keyExtractor={(item) => item.id}
+            />
+          </>
+        ) : null}
       </>
     );
   };
@@ -47,6 +51,7 @@ const MealView = () => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{
           paddingHorizontal: 16,
+          paddingBottom: 120,
         }}
       />
     </View>
