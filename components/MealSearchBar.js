@@ -11,6 +11,7 @@ import {
   filterMenuByName,
   filterMenuByCategory,
   setSearchText,
+  setSelectedCategory,
 } from "../redux/mainSlice";
 
 const MealSearchBar = () => {
@@ -19,6 +20,7 @@ const MealSearchBar = () => {
   const [isActive, setIsActive] = useState(false);
 
   const handleSearchTextChange = (text) => {
+    dispatch(setSelectedCategory(null));
     dispatch(filterMenuByName(text));
     dispatch(setSearchText(text));
   };

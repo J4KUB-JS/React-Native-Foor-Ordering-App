@@ -23,7 +23,6 @@ const Tab = createBottomTabNavigator();
 
 function MainView() {
   const { colors } = useTheme();
-
   const cartItemsCount = useSelector((state) => state.main.cartItemsCount);
   return (
     <Tab.Navigator
@@ -33,9 +32,10 @@ function MainView() {
         tabBarStyle: {
           backgroundColor: colors.black,
           borderRadius: 50,
-          marginBottom: 10,
-          paddingTop: 10,
+          marginBottom: 20,
+          paddingTop: 20,
           width: "95%",
+          height: 90,
           alignSelf: "center",
           flexDirection: "row",
         },

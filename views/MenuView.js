@@ -9,6 +9,7 @@ import {
   removeItemFromCart,
   filterMenuByName,
   filterMenuByCategory,
+  setSearchText,
 } from "../redux/mainSlice";
 
 //Internal Components
@@ -17,6 +18,7 @@ import MealSearchBar from "../components/MealSearchBar";
 import CategoriesSlider from "../components/CategoriesSlider";
 
 const MealView = () => {
+  const dispatch = useDispatch();
   const filteredMeals = useSelector((state) => state.main.filteredMenu);
   const categories = useSelector((state) => state.main.categories);
 

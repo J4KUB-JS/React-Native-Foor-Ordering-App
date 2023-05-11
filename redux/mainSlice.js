@@ -8,6 +8,7 @@ const initialState = {
   filteredMenu: MENU,
   categories: CATEGORIES,
   searchText: "",
+  selectedCategory: null,
 };
 
 export const cartSlice = createSlice({
@@ -26,7 +27,7 @@ export const cartSlice = createSlice({
       }
     },
     removeItemFromCart: (state, action) => {
-      state.cartItemsCount - 1;
+      state.cartItemsCount--;
       const index = state.cart.findIndex((item) => item.id === action.payload);
       if (index !== -1) {
         const item = state.cart[index];
@@ -43,11 +44,11 @@ export const cartSlice = createSlice({
       );
     },
     filterMenuByCategory: (state, action) => {
-      if (action.payload !== null) {
-        state.filteredMenu = state.menu.filter((item) =>
-          item.category.id
-            .toLowerCase()
-            .includes(action.payload.id.toLowerCase())
+      if (state.selectedCategory !== null) {
+        state.filteredMenu = state.menu.filter(
+          (item) =>
+            item.category.id.toLowerCase() ===
+            state.selectedCategory.id.toLowerCase()
         );
       } else {
         state.filteredMenu = state.menu;
@@ -55,6 +56,9 @@ export const cartSlice = createSlice({
     },
     setSearchText: (state, action) => {
       state.searchText = action.payload;
+    },
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
     },
   },
 });
@@ -65,6 +69,7 @@ export const {
   filterMenuByName,
   filterMenuByCategory,
   setSearchText,
+  setSelectedCategory,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

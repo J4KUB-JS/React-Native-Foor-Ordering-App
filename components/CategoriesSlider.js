@@ -1,5 +1,5 @@
 //Libraries
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -16,20 +16,28 @@ import {
   filterMenuByName,
   filterMenuByCategory,
   setSearchText,
+  setSelectedCategory,
 } from "../redux/mainSlice";
 
 const CategoriesSlider = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.main.categories);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const selectedCategory = useSelector((state) => state.main.selectedCategory);
+
+  useEffect(() => {
+    dispatch(filterMenuByCategory(selectedCategory));
+  }, [selectedCategory]);
 
   const handleCategoryChange = (category) => {
-    if (selectedCategoryId !== category.id) {
-      dispatch(filterMenuByCategory(category));
-      setSelectedCategoryId(category.id);
+    dispatch(setSearchText(""));
+    if (selectedCategory !== null) {
+      if (selectedCategory.id !== category.id) {
+        dispatch(setSelectedCategory(category));
+      } else {
+        dispatch(setSelectedCategory(null));
+      }
     } else {
-      dispatch(filterMenuByCategory(null));
-      setSelectedCategoryId(null);
+      dispatch(setSelectedCategory(category));
     }
   };
 
@@ -41,8 +49,10 @@ const CategoriesSlider = () => {
     >
       <Text
         style={
-          selectedCategoryId === item.id
-            ? styles.activeCategory
+          selectedCategory !== null
+            ? selectedCategory.id === item.id
+              ? styles.activeCategory
+              : styles.category
             : styles.category
         }
       >
