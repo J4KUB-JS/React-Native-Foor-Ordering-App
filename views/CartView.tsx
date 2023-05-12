@@ -16,9 +16,10 @@ import {
 //Internal Components
 import OrderedItemsSummary from "../components/OrderedItemsSummary";
 import CartSummaryWithAction from "../components/CartSummaryWithAction";
+import { RootState } from "../redux/store";
 
 function CartView() {
-  const cart = useSelector((state) => state.main.cart);
+  const cart = useSelector((state: RootState) => state.main.cart);
 
   return (
     <>

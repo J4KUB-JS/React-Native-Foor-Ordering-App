@@ -1,21 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CATEGORIES, MENU } from "../data/data";
+import { Category, MainState, MenuItem } from "../types/types";
 
-const initialState = {
+const initialState: MainState = {
   cart: [],
   cartItemsCount: 0,
   menu: MENU,
   filteredMenu: MENU,
   categories: CATEGORIES,
   searchText: "",
-  selectedCategory: null,
+  selectedCategory: "",
 };
 
 export const cartSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    addItemToCart: (state, action) => {
+    addItemToCart: (state, action: PayloadAction<MenuItem>) => {
       state.cartItemsCount++;
       const index = state.cart.findIndex(
         (item) => item.id === action.payload.id
@@ -26,7 +27,7 @@ export const cartSlice = createSlice({
         state.cart.push({ ...action.payload, count: 1 });
       }
     },
-    removeItemFromCart: (state, action) => {
+    removeItemFromCart: (state, action: PayloadAction<string>) => {
       state.cartItemsCount--;
       const index = state.cart.findIndex((item) => item.id === action.payload);
       if (index !== -1) {
@@ -38,26 +39,24 @@ export const cartSlice = createSlice({
         }
       }
     },
-    filterMenuByName: (state, action) => {
+    filterMenuByName: (state, action: PayloadAction<string>) => {
       state.filteredMenu = state.menu.filter((item) =>
         item.name.toLowerCase().includes(action.payload.toLowerCase())
       );
     },
-    filterMenuByCategory: (state, action) => {
-      if (state.selectedCategory !== null) {
+    filterMenuByCategory: (state, action: PayloadAction<string>) => {
+      if (state.selectedCategory !== "") {
         state.filteredMenu = state.menu.filter(
-          (item) =>
-            item.category.id.toLowerCase() ===
-            state.selectedCategory.id.toLowerCase()
+          (item) => item.category.id.toLowerCase() === action.payload
         );
       } else {
         state.filteredMenu = state.menu;
       }
     },
-    setSearchText: (state, action) => {
+    setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
-    setSelectedCategory: (state, action) => {
+    setSelectedCategory: (state, action: PayloadAction<string>) => {
       state.selectedCategory = action.payload;
     },
   },

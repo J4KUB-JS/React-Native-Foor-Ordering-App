@@ -13,17 +13,20 @@ import {
   filterMenuByCategory,
   setSearchText,
 } from "../redux/mainSlice";
+import { MenuItem } from "../types/types";
 
-const MealCard = ({ item }) => {
+interface MealCardProps {
+  item: MenuItem;
+}
+
+const MealCard = ({ item }: MealCardProps) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.card}>
       <View>
         <View style={styles.cardHeader}>
           <Text style={styles.name}>{item.name}</Text>
-          {item.icon && (
-            <FontAwesome5 name={item.icon} size={20} style={styles.icon} />
-          )}
+          {item.icon && <FontAwesome5 name={item.icon} size={20} />}
         </View>
         <Text style={styles.price}>${item.price.toFixed(2)}</Text>
       </View>

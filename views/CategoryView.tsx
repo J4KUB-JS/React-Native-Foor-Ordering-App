@@ -19,18 +19,22 @@ import {
   filterMenuByCategory,
   setSearchText,
 } from "../redux/mainSlice";
+import { useTheme } from "@react-navigation/native";
+import { RootState } from "../redux/store";
+import { Category, MenuItem } from "../types/types";
 
 function CategoryView() {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const categories = useSelector((state) => state.main.categories);
-  const menu = useSelector((state) => state.main.menu);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const categories = useSelector((state: RootState) => state.main.categories);
+  const menu = useSelector((state: RootState) => state.main.menu);
+  const { colors } = useTheme();
 
-  const toggleCategory = (categoryId) => {
+  const toggleCategory = (categoryId: string) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setSelectedCategoryId((prev) => (prev === categoryId ? null : categoryId));
+    setSelectedCategoryId((prev) => (prev === categoryId ? "" : categoryId));
   };
 
-  const renderCategoryItem = ({ item }) => {
+  const renderCategoryItem = ({ item }: { item: Category }) => {
     const categoryMenu = menu.filter((meal) => meal.category.id === item.id);
 
     return (
@@ -39,7 +43,7 @@ function CategoryView() {
           <View style={styles.card}>
             <View style={styles.cardHeader}>
               <Text style={styles.categoryTitle}>{item.title}</Text>
-              <Ionicons name="chevron-up" size={25} color="#000" />
+              <Ionicons name="chevron-up" size={25} color={colors.text} />
             </View>
             <FlatList
               data={categoryMenu}
@@ -53,7 +57,7 @@ function CategoryView() {
           <View style={styles.card}>
             <View style={styles.cardHeader}>
               <Text style={styles.categoryTitle}>{item.title}</Text>
-              <Ionicons name="chevron-down" size={25} color="#000" />
+              <Ionicons name="chevron-down" size={25} color={colors.text} />
             </View>
           </View>
         )}

@@ -18,39 +18,40 @@ import {
   setSearchText,
   setSelectedCategory,
 } from "../redux/mainSlice";
+import { Category } from "../types/types";
+import { RootState } from "../redux/store";
 
 const CategoriesSlider = () => {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.main.categories);
-  const selectedCategory = useSelector((state) => state.main.selectedCategory);
+  const categories = useSelector((state: RootState) => state.main.categories);
+
+  const selectedCategory = useSelector(
+    (state: RootState) => state.main.selectedCategory
+  );
 
   useEffect(() => {
     dispatch(filterMenuByCategory(selectedCategory));
   }, [selectedCategory]);
 
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = (categoryId: string) => {
     dispatch(setSearchText(""));
-    if (selectedCategory !== null) {
-      if (selectedCategory.id !== category.id) {
-        dispatch(setSelectedCategory(category));
-      } else {
-        dispatch(setSelectedCategory(null));
-      }
+    if (selectedCategory !== categoryId) {
+      dispatch(setSelectedCategory(categoryId));
     } else {
-      dispatch(setSelectedCategory(category));
+      dispatch(setSelectedCategory(categoryId));
     }
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: Category }) => (
     <TouchableOpacity
       onPress={() => {
-        handleCategoryChange(item);
+        handleCategoryChange(item.id);
       }}
     >
       <Text
         style={
           selectedCategory !== null
-            ? selectedCategory.id === item.id
+            ? selectedCategory === item.id
               ? styles.activeCategory
               : styles.category
             : styles.category

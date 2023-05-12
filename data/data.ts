@@ -1,11 +1,13 @@
-export const CATEGORIES = [
+import { Category, MenuItem } from "../types/types";
+
+export const CATEGORIES: Category[] = [
   { id: "c3", title: "Appetizers" },
   { id: "c2", title: "Pizza" },
   { id: "c4", title: "Salads" },
   { id: "c1", title: "Drinks" },
 ];
 
-export const MENU = [
+export const MENU: MenuItem[] = [
   {
     id: "p1",
     name: "Margherita",

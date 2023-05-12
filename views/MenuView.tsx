@@ -16,13 +16,17 @@ import {
 import MealCard from "../components/MealCard";
 import MealSearchBar from "../components/MealSearchBar";
 import CategoriesSlider from "../components/CategoriesSlider";
+import { RootState } from "../redux/store";
+import { Category } from "../types/types";
 
 const MealView = () => {
   const dispatch = useDispatch();
-  const filteredMeals = useSelector((state) => state.main.filteredMenu);
-  const categories = useSelector((state) => state.main.categories);
+  const filteredMeals = useSelector(
+    (state: RootState) => state.main.filteredMenu
+  );
+  const categories = useSelector((state: RootState) => state.main.categories);
 
-  const renderByCategory = ({ item }) => {
+  const renderByCategory = ({ item }: { item: Category }) => {
     const categoryMenu = filteredMeals.filter(
       (menuItem) => menuItem.category.id === item.id
     );
@@ -43,6 +47,7 @@ const MealView = () => {
       </>
     );
   };
+
   return (
     <View style={styles.container}>
       <MealSearchBar />

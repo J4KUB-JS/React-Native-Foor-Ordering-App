@@ -13,14 +13,15 @@ import {
   setSearchText,
   setSelectedCategory,
 } from "../redux/mainSlice";
+import { RootState } from "../redux/store";
 
 const MealSearchBar = () => {
   const dispatch = useDispatch();
-  const searchText = useSelector((state) => state.main.searchText);
+  const searchText = useSelector((state: RootState) => state.main.searchText);
   const [isActive, setIsActive] = useState(false);
 
-  const handleSearchTextChange = (text) => {
-    dispatch(setSelectedCategory(null));
+  const handleSearchTextChange = (text: string) => {
+    dispatch(setSelectedCategory(""));
     dispatch(filterMenuByName(text));
     dispatch(setSearchText(text));
   };
@@ -28,7 +29,7 @@ const MealSearchBar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputWithIconWrapper}>
-        <Ionicons name="search-outline" size={25} color="#ccc" />
+        <Ionicons name="search-outline" size={25} />
         <TextInput
           style={styles.input}
           value={searchText}
@@ -40,7 +41,7 @@ const MealSearchBar = () => {
       </View>
       {isActive && searchText !== "" && (
         <TouchableOpacity onPress={() => handleSearchTextChange("")}>
-          <Ionicons name="close-circle" size={25} color="#ccc" />
+          <Ionicons name="close-circle" size={25} />
         </TouchableOpacity>
       )}
     </View>

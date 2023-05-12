@@ -12,9 +12,17 @@ import {
   filterMenuByCategory,
   setSearchText,
 } from "../redux/mainSlice";
+import { CartItem, MenuItem } from "../types/types";
+import { useTheme } from "@react-navigation/native";
 
-function OrderedItemsSummary({ item }) {
+interface OrderedItemsSummaryProps {
+  item: CartItem;
+}
+
+function OrderedItemsSummary({ item }: OrderedItemsSummaryProps) {
   const dispatch = useDispatch();
+  const { colors } = useTheme();
+
   return (
     <View style={styles.card}>
       <View>
@@ -23,15 +31,15 @@ function OrderedItemsSummary({ item }) {
       </View>
       <View style={styles.itemActions}>
         <TouchableOpacity onPress={() => dispatch(addItemToCart(item))}>
-          <View style={styles.addIcon}>
-            <Ionicons name="ios-add-circle" size={24} color="#2AB179" />
-          </View>
+          <Ionicons name="ios-add-circle" size={24} color={colors.primary} />
         </TouchableOpacity>
         <Text style={styles.itemCount}>{item.count}</Text>
         <TouchableOpacity onPress={() => dispatch(removeItemFromCart(item.id))}>
-          <View style={styles.removeIcon}>
-            <Ionicons name="ios-remove-circle" size={24} color="#EF6363" />
-          </View>
+          <Ionicons
+            name="ios-remove-circle"
+            size={24}
+            color={colors.notification}
+          />
         </TouchableOpacity>
       </View>
     </View>

@@ -1,8 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
-function CartSummaryWithAction({ mealsTotalPrice }) {
+interface CartSummaryWithAction {
+  mealsTotalPrice: number;
+}
+
+function CartSummaryWithAction({ mealsTotalPrice }: CartSummaryWithAction) {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.cartSummaryContainer}>
       <View style={styles.priceContainer}>
@@ -29,7 +36,7 @@ function CartSummaryWithAction({ mealsTotalPrice }) {
       </View>
       <TouchableOpacity style={styles.orderButton}>
         <Text style={styles.orderButtonText}>Place Order</Text>
-        <Ionicons name="arrow-forward" size={24} color="#fff" />
+        <Ionicons name="arrow-forward" size={24} color={colors.background} />
       </TouchableOpacity>
     </View>
   );

@@ -18,19 +18,22 @@ import MenuView from "./MenuView";
 import CartView from "./CartView";
 import CategoryView from "./CategoryView";
 import { useTheme } from "@react-navigation/native";
+import { RootState } from "../redux/store";
 
 const Tab = createBottomTabNavigator();
 
 function MainView() {
   const { colors } = useTheme();
-  const cartItemsCount = useSelector((state) => state.main.cartItemsCount);
+  const cartItemsCount = useSelector(
+    (state: RootState) => state.main.cartItemsCount
+  );
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarActiveTintColor: colors.green,
-        tabBarInactiveTintColor: colors.white,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.background,
         tabBarStyle: {
-          backgroundColor: colors.black,
+          backgroundColor: colors.text,
           borderRadius: 50,
           marginBottom: 20,
           paddingTop: 20,
@@ -39,8 +42,11 @@ function MainView() {
           alignSelf: "center",
           flexDirection: "row",
         },
+        headerStyle: {
+          backgroundColor: colors.background,
+        },
         tabBarIcon: ({ color, size }) => {
-          let iconName;
+          let iconName: "fast-food" | "list" | "cart" = "cart";
           if (route.name === "Menu") {
             iconName = "fast-food";
           } else if (route.name === "Categories") {
@@ -62,8 +68,8 @@ function MainView() {
             ? {
                 tabBarBadge: cartItemsCount,
                 tabBarBadgeStyle: {
-                  backgroundColor: "#E34C4C",
-                  color: "white",
+                  backgroundColor: colors.notification,
+                  color: colors.background,
                   fontSize: 14,
                 },
               }
