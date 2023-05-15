@@ -2,18 +2,14 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 //Redux
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-} from "../redux/mainSlice";
-import { CartItem, MenuItem } from "../types/types";
-import { useTheme } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { addItemToCart, removeItemFromCart } from "../redux/mainSlice";
+
+//Internal
+import { CartItem } from "../types/types";
 
 interface OrderedItemsSummaryProps {
   item: CartItem;
@@ -35,11 +31,7 @@ function OrderedItemsSummary({ item }: OrderedItemsSummaryProps) {
         </TouchableOpacity>
         <Text style={styles.itemCount}>{item.count}</Text>
         <TouchableOpacity onPress={() => dispatch(removeItemFromCart(item.id))}>
-          <Ionicons
-            name="ios-remove-circle"
-            size={24}
-            color={colors.notification}
-          />
+          <Ionicons name="ios-remove-circle" size={24} color={colors.notification} />
         </TouchableOpacity>
       </View>
     </View>

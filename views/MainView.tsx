@@ -1,32 +1,59 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+//Libraries
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
+import { getDocs } from "firebase/firestore";
 
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-} from "../redux/mainSlice";
+import { setMenu, setCategories } from "../redux/mainSlice";
 
 //Internal Components
 import MenuView from "./MenuView";
 import CartView from "./CartView";
 import CategoryView from "./CategoryView";
-import { useTheme } from "@react-navigation/native";
 import { RootState } from "../redux/store";
+import { colRefCategories, colRefMenu } from "../config/firebase";
+import { Category, MenuItem } from "../types/types";
 
 const Tab = createBottomTabNavigator();
 
 function MainView() {
   const { colors } = useTheme();
-  const cartItemsCount = useSelector(
-    (state: RootState) => state.main.cartItemsCount
-  );
+  const dispatch = useDispatch();
+  const cartItemsCount = useSelector((state: RootState) => state.main.cartItemsCount);
+
+  useEffect(() => {
+    getDocs(colRefMenu).then((snapshot) => {
+      let menu: MenuItem[] = [];
+      snapshot.docs.forEach((doc) => {
+        const response = doc.data() as MenuItem;
+        menu.push({
+          id: response.id,
+          name: response.name,
+          ingredients: response.ingredients,
+          price: response.price,
+          category: response.category,
+          icon: response.icon,
+        });
+      });
+      dispatch(setMenu(menu));
+    });
+
+    getDocs(colRefCategories).then((snapshot) => {
+      let category: Category[] = [];
+      snapshot.docs.forEach((doc) => {
+        const response = doc.data() as Category;
+        category.push({
+          id: response.id,
+          title: response.title,
+        });
+      });
+      dispatch(setCategories(category));
+    });
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

@@ -5,14 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-  setSelectedCategory,
-} from "../redux/mainSlice";
+import { filterMenuByName, setSearchText, setSelectedCategory } from "../redux/mainSlice";
 import { RootState } from "../redux/store";
 
 const MealSearchBar = () => {

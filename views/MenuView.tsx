@@ -1,29 +1,19 @@
 //Libraries
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, FlatList, Text } from "react-native";
 
 //Redux
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-} from "../redux/mainSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-//Internal Components
+//Internal
 import MealCard from "../components/MealCard";
 import MealSearchBar from "../components/MealSearchBar";
 import CategoriesSlider from "../components/CategoriesSlider";
-import { RootState } from "../redux/store";
 import { Category } from "../types/types";
 
 const MealView = () => {
-  const dispatch = useDispatch();
-  const filteredMeals = useSelector(
-    (state: RootState) => state.main.filteredMenu
-  );
+  const filteredMeals = useSelector((state: RootState) => state.main.filteredMenu);
   const categories = useSelector((state: RootState) => state.main.categories);
 
   const renderByCategory = ({ item }: { item: Category }) => {

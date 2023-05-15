@@ -5,14 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 //Redux
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-} from "../redux/mainSlice";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/mainSlice";
+
+//Internal
 import { MenuItem } from "../types/types";
 
 interface MealCardProps {

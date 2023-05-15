@@ -1,33 +1,24 @@
 //Libraries
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from "react-native";
 
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
   filterMenuByCategory,
   setSearchText,
   setSelectedCategory,
 } from "../redux/mainSlice";
-import { Category } from "../types/types";
 import { RootState } from "../redux/store";
+
+//Internal
+import { Category } from "../types/types";
 
 const CategoriesSlider = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state: RootState) => state.main.categories);
 
-  const selectedCategory = useSelector(
-    (state: RootState) => state.main.selectedCategory
-  );
+  const selectedCategory = useSelector((state: RootState) => state.main.selectedCategory);
 
   useEffect(() => {
     dispatch(filterMenuByCategory(selectedCategory));

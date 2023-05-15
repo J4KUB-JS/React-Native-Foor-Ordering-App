@@ -1,3 +1,4 @@
+//Libraries
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,9 +16,7 @@ function CartSummaryWithAction({ mealsTotalPrice }: CartSummaryWithAction) {
       <View style={styles.priceContainer}>
         <View style={styles.individualCostsItem}>
           <Text style={styles.individualCostsLabel}>Subtotal</Text>
-          <Text style={styles.individualCostsLabel}>
-            $ {mealsTotalPrice.toFixed(2)}
-          </Text>
+          <Text style={styles.individualCostsLabel}>$ {mealsTotalPrice.toFixed(2)}</Text>
         </View>
         <View style={styles.individualCostsItem}>
           <Text style={styles.individualCostsLabel}>Service Fee</Text>

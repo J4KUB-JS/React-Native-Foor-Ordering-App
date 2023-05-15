@@ -9,19 +9,14 @@ import {
   StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 //Redux
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-} from "../redux/mainSlice";
-import { useTheme } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Category, MenuItem } from "../types/types";
+
+//Internal
+import { Category } from "../types/types";
 
 function CategoryView() {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
@@ -48,9 +43,7 @@ function CategoryView() {
             <FlatList
               data={categoryMenu}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <Text style={styles.mealItem}>{item.name}</Text>
-              )}
+              renderItem={({ item }) => <Text style={styles.mealItem}>{item.name}</Text>}
             />
           </View>
         ) : (

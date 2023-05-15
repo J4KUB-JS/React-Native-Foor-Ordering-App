@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CATEGORIES, MENU } from "../data/data";
 import { Category, MainState, MenuItem } from "../types/types";
 
 const initialState: MainState = {
   cart: [],
   cartItemsCount: 0,
-  menu: MENU,
-  filteredMenu: MENU,
-  categories: CATEGORIES,
+  menu: [],
+  filteredMenu: [],
+  categories: [],
   searchText: "",
   selectedCategory: "",
 };
@@ -16,6 +15,13 @@ export const cartSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
+    setMenu: (state, action: PayloadAction<MenuItem[]>) => {
+      state.menu = action.payload;
+      state.filteredMenu = action.payload;
+    },
+    setCategories: (state, action: PayloadAction<Category[]>) => {
+      state.categories = action.payload;
+    },
     addItemToCart: (state, action: PayloadAction<MenuItem>) => {
       state.cartItemsCount++;
       const index = state.cart.findIndex(
@@ -63,6 +69,8 @@ export const cartSlice = createSlice({
 });
 
 export const {
+  setMenu,
+  setCategories,
   addItemToCart,
   removeItemFromCart,
   filterMenuByName,

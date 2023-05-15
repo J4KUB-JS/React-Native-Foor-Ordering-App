@@ -4,19 +4,12 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 //Redux
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemFromCart,
-  filterMenuByName,
-  filterMenuByCategory,
-  setSearchText,
-} from "../redux/mainSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-//Internal Components
+//Internal
 import OrderedItemsSummary from "../components/OrderedItemsSummary";
 import CartSummaryWithAction from "../components/CartSummaryWithAction";
-import { RootState } from "../redux/store";
 
 function CartView() {
   const cart = useSelector((state: RootState) => state.main.cart);
@@ -41,10 +34,7 @@ function CartView() {
             }}
           />
           <CartSummaryWithAction
-            mealsTotalPrice={cart.reduce(
-              (acc, curr) => acc + curr.price * curr.count,
-              0
-            )}
+            mealsTotalPrice={cart.reduce((acc, curr) => acc + curr.price * curr.count, 0)}
           />
         </View>
       )}
