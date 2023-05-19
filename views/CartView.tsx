@@ -31,6 +31,7 @@ function CartView() {
             keyExtractor={(item) => item.id}
             contentContainerStyle={{
               paddingHorizontal: 16,
+              paddingVertical: 16,
             }}
           />
           <CartSummaryWithAction
@@ -46,7 +47,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    paddingVertical: 16,
     gap: 20,
   },
   emptyCartContainer: {

@@ -39,17 +39,19 @@ const CategoriesSlider = () => {
         handleCategoryChange(item.id);
       }}
     >
-      <Text
+      <View
         style={
-          selectedCategory !== null
-            ? selectedCategory === item.id
-              ? styles.activeCategory
-              : styles.category
-            : styles.category
+          selectedCategory === item.id ? styles.activeCategoryChip : styles.categoryChip
         }
       >
-        {item.title}
-      </Text>
+        <Text
+          style={
+            selectedCategory === item.id ? styles.activeCategoryText : styles.categoryText
+          }
+        >
+          {item.title}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
   return (
@@ -71,25 +73,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  category: {
+  categoryChip: {
     marginRight: 15,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 15,
     borderWidth: 2,
     borderColor: "#276578",
+  },
+  categoryText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#276578",
   },
-  activeCategory: {
-    padding: 10,
+  activeCategoryChip: {
     marginRight: 15,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 15,
     borderWidth: 2,
     borderColor: "#2AB179",
+  },
+  activeCategoryText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#2AB179",

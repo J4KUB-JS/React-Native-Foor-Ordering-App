@@ -63,7 +63,10 @@ function CategoryView() {
       data={categories}
       keyExtractor={(category) => category.id}
       renderItem={renderCategoryItem}
-      style={styles.container}
+      contentContainerStyle={{
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+      }}
     />
   );
 }
@@ -71,7 +74,6 @@ function CategoryView() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 16,
     gap: 20,
   },
   card: {
@@ -80,13 +82,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 15,
+    elevation: 2,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
     },
     shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 5,
     justifyContent: "space-between",
   },
   cardHeader: {

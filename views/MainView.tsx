@@ -61,13 +61,6 @@ function MainView() {
         tabBarInactiveTintColor: colors.background,
         tabBarStyle: {
           backgroundColor: colors.text,
-          borderRadius: 50,
-          marginBottom: 20,
-          paddingTop: 20,
-          width: "95%",
-          height: 90,
-          alignSelf: "center",
-          flexDirection: "row",
         },
         headerStyle: {
           backgroundColor: colors.background,
