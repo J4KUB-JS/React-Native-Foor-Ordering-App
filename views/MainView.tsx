@@ -57,6 +57,7 @@ function MainView() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        keyboardHidesTabBar: true,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.background,
         tabBarStyle: {
