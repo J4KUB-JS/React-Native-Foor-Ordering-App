@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     gap: 20,
+    marginBottom: 10,
   },
   emptyCartContainer: {
     flex: 1,

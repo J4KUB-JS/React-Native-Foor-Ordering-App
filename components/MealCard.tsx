@@ -1,36 +1,39 @@
 //Libraries
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 //Redux
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "../redux/mainSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 //Internal
 import { MenuItem } from "../types/types";
+import { AddRemoveButton } from "./AddRemoveButton";
 
 interface MealCardProps {
   item: MenuItem;
 }
 
 const MealCard = ({ item }: MealCardProps) => {
-  const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.main.cart);
+  const itemCount = cart.find((cartItem) => cartItem.id === item.id)?.count;
+
   return (
     <View style={styles.card}>
-      <View>
+      <View style={styles.priceChip}>
+        <Text style={styles.priceChipText}>$ {item.price.toFixed(2)}</Text>
+      </View>
+      <View style={styles.mainWrapper}>
         <View style={styles.cardHeader}>
           <Text style={styles.name}>{item.name}</Text>
           {item.icon && <FontAwesome5 name={item.icon} size={20} />}
         </View>
-        <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+        {item.ingredients.length !== 0 && (
+          <Text style={styles.ingredients}>{item.ingredients.join(", ")}</Text>
+        )}
       </View>
-      <TouchableOpacity onPress={() => dispatch(addItemToCart(item))}>
-        <View style={styles.actionButton}>
-          <Ionicons name="add-outline" size={30} color="white" />
-        </View>
-      </TouchableOpacity>
+      <AddRemoveButton variant="vertical" count={itemCount ? itemCount : 0} item={item} />
     </View>
   );
 };
@@ -38,14 +41,15 @@ const MealCard = ({ item }: MealCardProps) => {
 const styles = StyleSheet.create({
   card: {
     width: "100%",
-    height: 80,
+    // height: 100,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 20,
     backgroundColor: "#fff",
     marginBottom: 10,
-    paddingLeft: 16,
+    // paddingLeft: 16,
+    padding: 20,
     elevation: 2,
     shadowColor: "#000",
     shadowOffset: {
@@ -60,23 +64,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
+  mainWrapper: {
+    width: "70%",
+  },
   name: {
+    marginTop: 10,
     fontWeight: "bold",
     fontSize: 20,
-    marginBottom: 5,
   },
-  price: {
-    marginBottom: 10,
-    fontSize: 16,
+  ingredients: {
+    marginTop: 10,
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: 15,
   },
-  actionButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 50,
-    width: 50,
-    backgroundColor: "#2AB179",
+  priceChip: {
+    position: "absolute",
+    left: -5,
+    top: -5,
+    width: 70,
+    backgroundColor: "#276578",
+    padding: 5,
     borderRadius: 20,
-    marginRight: 16,
+  },
+  priceChipText: {
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 16,
+    color: "#fff",
   },
 });
 

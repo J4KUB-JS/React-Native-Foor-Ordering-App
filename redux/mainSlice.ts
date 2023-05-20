@@ -24,9 +24,7 @@ export const cartSlice = createSlice({
     },
     addItemToCart: (state, action: PayloadAction<MenuItem>) => {
       state.cartItemsCount++;
-      const index = state.cart.findIndex(
-        (item) => item.id === action.payload.id
-      );
+      const index = state.cart.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) {
         state.cart[index].count++;
       } else {
@@ -34,9 +32,9 @@ export const cartSlice = createSlice({
       }
     },
     removeItemFromCart: (state, action: PayloadAction<string>) => {
-      state.cartItemsCount--;
       const index = state.cart.findIndex((item) => item.id === action.payload);
       if (index !== -1) {
+        state.cartItemsCount--;
         const item = state.cart[index];
         if (item.count === 1) {
           state.cart.splice(index, 1);

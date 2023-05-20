@@ -24,6 +24,18 @@ function MainView() {
   const dispatch = useDispatch();
   const cartItemsCount = useSelector((state: RootState) => state.main.cartItemsCount);
 
+  const itemsInCartIndicator =
+    cartItemsCount !== 0
+      ? {
+          tabBarBadge: cartItemsCount,
+          tabBarBadgeStyle: {
+            backgroundColor: colors.notification,
+            color: colors.background,
+            fontSize: 14,
+          },
+        }
+      : {};
+
   useEffect(() => {
     getDocs(colRefMenu).then((snapshot) => {
       let menu: MenuItem[] = [];
@@ -81,22 +93,7 @@ function MainView() {
     >
       <Tab.Screen name="Menu" component={MenuView} />
       <Tab.Screen name="Categories" component={CategoryView} />
-      <Tab.Screen
-        name="Cart"
-        component={CartView}
-        options={
-          cartItemsCount !== 0
-            ? {
-                tabBarBadge: cartItemsCount,
-                tabBarBadgeStyle: {
-                  backgroundColor: colors.notification,
-                  color: colors.background,
-                  fontSize: 14,
-                },
-              }
-            : {}
-        }
-      />
+      <Tab.Screen name="Cart" component={CartView} options={itemsInCartIndicator} />
     </Tab.Navigator>
   );
 }

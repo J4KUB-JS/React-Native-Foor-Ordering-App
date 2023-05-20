@@ -10,6 +10,7 @@ import { addItemToCart, removeItemFromCart } from "../redux/mainSlice";
 
 //Internal
 import { CartItem } from "../types/types";
+import { AddRemoveButton } from "./AddRemoveButton";
 
 interface OrderedItemsSummaryProps {
   item: CartItem;
@@ -25,15 +26,7 @@ function OrderedItemsSummary({ item }: OrderedItemsSummaryProps) {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.price}>${item.price.toFixed(2)} / Each</Text>
       </View>
-      <View style={styles.itemActions}>
-        <TouchableOpacity onPress={() => dispatch(addItemToCart(item))}>
-          <Ionicons name="ios-add-circle" size={24} color={colors.primary} />
-        </TouchableOpacity>
-        <Text style={styles.itemCount}>{item.count}</Text>
-        <TouchableOpacity onPress={() => dispatch(removeItemFromCart(item.id))}>
-          <Ionicons name="ios-remove-circle" size={24} color={colors.notification} />
-        </TouchableOpacity>
-      </View>
+      <AddRemoveButton variant="vertical" count={item.count} item={item} />
     </View>
   );
 }

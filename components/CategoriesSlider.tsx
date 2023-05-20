@@ -29,7 +29,7 @@ const CategoriesSlider = () => {
     if (selectedCategory !== categoryId) {
       dispatch(setSelectedCategory(categoryId));
     } else {
-      dispatch(setSelectedCategory(categoryId));
+      dispatch(setSelectedCategory(""));
     }
   };
 
