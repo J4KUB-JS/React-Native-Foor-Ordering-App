@@ -32,6 +32,14 @@ PS. if app does not build in app close it and scanning code again
 
 ---
 
+- Tab Bar:
 - Menu Screen:
+  - Search box:
+  - Category filter:
+  - Menu card:
 - Categories Screen:
+  - Category card:
 - Cart Screen:
+  - Empty state:
+  - Items in cart:
+  - Summary cart with action:

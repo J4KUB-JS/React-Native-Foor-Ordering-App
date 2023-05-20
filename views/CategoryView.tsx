@@ -130,6 +130,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   mealItem: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     width: 120,
     borderWidth: 2,
     borderColor: "#000",
