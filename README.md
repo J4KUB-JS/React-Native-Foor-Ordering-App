@@ -32,14 +32,18 @@ PS. if app does not build in app close it and scanning code again
 
 ---
 
-- Tab Bar:
+This project was created by using stack of React Native with TypeScript, react-navigation library to provide functionality of navigating, Redux with Redux Tool-Kit for holding internal state of application and FireBase for storing data like categories and menu items
+
+- Tab Bar: Have 3 views to select from:
+  - Menu with all the item and other crucial actions
+  - Categories where all items are grouped bu category
+  - Cart where we can see selected products after adding item to cart red indicator will pop up next to cart icon with count of items in cart
 - Menu Screen:
-  - Search box:
-  - Category filter:
-  - Menu card:
-- Categories Screen:
-  - Category card:
+  - Search box: Allows for quick search for users that know what they want to order. It also contains icon that has action to clear input
+  - Category filter: quick filter contained in horizontal scrolling list with all categories
+  - Menu card: each item has its own card with price label, ingredients inside, and action to add or remove item from cart with counter of selected item
+- Categories Screen: Each category has its own drop down wrapper that contains simple menu cards with price and action buttons wrapped into horizontal scrolling list
 - Cart Screen:
-  - Empty state:
-  - Items in cart:
-  - Summary cart with action:
+  - Empty state: if we go to cart with out any item inside we will see empty view with icons and text indication
+  - Items in cart: cart item card contains only important information such as price name and actions with count indicator
+  - Summary cart with action: here user can see summary of his order with information about any additional costs like Service Fee or Delivery Fee
